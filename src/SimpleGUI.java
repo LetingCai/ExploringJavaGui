@@ -69,6 +69,7 @@ public class SimpleGUI extends JFrame implements ActionListener, ItemListener, C
         textField = new JTextField(10); // accepts up to 10 characters
         JButton sendButton = new JButton("Send");
         JButton resetButton = new JButton("Reset");
+        JButton newWindow = new JButton("Open");
 
         // create checkboxes
         checkBox1 = new JCheckBox("Yes");
@@ -84,6 +85,7 @@ public class SimpleGUI extends JFrame implements ActionListener, ItemListener, C
         panel.add(textField);
         panel.add(sendButton);
         panel.add(resetButton);
+        panel.add(newWindow);
         panel.add(checkBox1);
         panel.add(checkBox2);
 
@@ -105,6 +107,7 @@ public class SimpleGUI extends JFrame implements ActionListener, ItemListener, C
         //setting up buttons to use ActionListener interface and actionPerformed method
         sendButton.addActionListener(this);
         resetButton.addActionListener(this);
+        newWindow.addActionListener(this);
         menuItem1.addActionListener(this);
         menuItem2.addActionListener(this);
         menuItem3.addActionListener(this);
@@ -140,6 +143,16 @@ public class SimpleGUI extends JFrame implements ActionListener, ItemListener, C
                 textField.setText("");
                 checkBox1.setSelected(false);
                 checkBox2.setSelected(false);
+            } else if (text.equals("Open")) {
+                JFrame newFrame = new JFrame("Another one");
+                newFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                newFrame.setSize(200,150);
+                newFrame.setLocation(350,75);
+                JLabel helloLabel = new JLabel("Hello!");
+                JPanel panel = new JPanel();
+                panel.add(helloLabel);
+                newFrame.add(panel,BorderLayout.NORTH);
+                newFrame.setVisible(true);
             }
         } else if (source instanceof JMenuItem item){
             String menuText = item.getText();
