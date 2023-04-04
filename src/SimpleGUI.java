@@ -22,7 +22,7 @@ public class SimpleGUI extends JFrame implements ActionListener, ItemListener, C
 
     private void init() {
         // setting up the frame
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(500, 400);
         setLocation(300, 50);
 
@@ -38,6 +38,7 @@ public class SimpleGUI extends JFrame implements ActionListener, ItemListener, C
         JMenuItem menuItem4 = new JMenuItem("About");
         menu2.add(menuItem3);
         menu2.add(menuItem4);
+
 
         // add "File" and "Help" menus to the MenuBar
         menuBar.add(menu1);
@@ -70,6 +71,7 @@ public class SimpleGUI extends JFrame implements ActionListener, ItemListener, C
         JButton sendButton = new JButton("Send");
         JButton resetButton = new JButton("Reset");
         JButton newWindow = new JButton("Open");
+        JButton open = new JButton("New");
 
         // create checkboxes
         checkBox1 = new JCheckBox("Yes");
@@ -86,6 +88,7 @@ public class SimpleGUI extends JFrame implements ActionListener, ItemListener, C
         panel.add(sendButton);
         panel.add(resetButton);
         panel.add(newWindow);
+        panel.add(open);
         panel.add(checkBox1);
         panel.add(checkBox2);
 
@@ -108,6 +111,7 @@ public class SimpleGUI extends JFrame implements ActionListener, ItemListener, C
         sendButton.addActionListener(this);
         resetButton.addActionListener(this);
         newWindow.addActionListener(this);
+        open.addActionListener(this);
         menuItem1.addActionListener(this);
         menuItem2.addActionListener(this);
         menuItem3.addActionListener(this);
@@ -133,26 +137,31 @@ public class SimpleGUI extends JFrame implements ActionListener, ItemListener, C
         if (source instanceof JButton button) {
             String text = button.getText();
 
-            if (text.equals("Send")) {
-                welcomeLabel.setText("Send pressed!");
-                textArea.append(textField.getText());
-                textField.setText("");
-            } else if (text.equals("Reset")) {
-                welcomeLabel.setText("Reset pressed!");
-                textArea.setText("");
-                textField.setText("");
-                checkBox1.setSelected(false);
-                checkBox2.setSelected(false);
-            } else if (text.equals("Open")) {
-                JFrame newFrame = new JFrame("Another one");
-                newFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                newFrame.setSize(200,150);
-                newFrame.setLocation(350,75);
-                JLabel helloLabel = new JLabel("Hello!");
-                JPanel panel = new JPanel();
-                panel.add(helloLabel);
-                newFrame.add(panel,BorderLayout.NORTH);
-                newFrame.setVisible(true);
+            switch (text) {
+                case "Send" -> {
+                    welcomeLabel.setText("Send pressed!");
+                    textArea.append(textField.getText());
+                    textField.setText("");
+                }
+                case "Reset" -> {
+                    welcomeLabel.setText("Reset pressed!");
+                    textArea.setText("");
+                    textField.setText("");
+                    checkBox1.setSelected(false);
+                    checkBox2.setSelected(false);
+                }
+                case "Open" -> {
+                    JFrame newFrame = new JFrame("Another one");
+                    newFrame.setDefaultCloseOperation(newFrame.DISPOSE_ON_CLOSE);
+                    newFrame.setSize(200, 150);
+                    newFrame.setLocation(350, 75);
+                    JLabel helloLabel = new JLabel("Hello!");
+                    JPanel panel = new JPanel();
+                    panel.add(helloLabel);
+                    newFrame.add(panel, BorderLayout.NORTH);
+                    newFrame.setVisible(true);
+                }
+                case "New" -> Main.openNewGUI();
             }
         } else if (source instanceof JMenuItem item){
             String menuText = item.getText();

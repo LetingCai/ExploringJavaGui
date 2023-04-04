@@ -1,5 +1,8 @@
 public class Main {
     public static void main(String[] args) {
-        SimpleGUI gui = new SimpleGUI();
+        new SimpleGUI();
+    }
+    public static void openNewGUI(){
+        new SimpleGUI();
     }
 }
